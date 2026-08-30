@@ -1,0 +1,68 @@
+/* Marker for any build that is not production. Deliberately loud: the whole
+   point is that a preview can never be mistaken for the live site. */
+.env-badge {
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 7px 13px;
+  border-radius: 999px;
+
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+
+  color: #1b1300;
+  background: #ffb020;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+
+  /* never intercept clicks — the hero and explorer own the whole viewport */
+  pointer-events: none;
+  user-select: none;
+}
+
+.env-badge--local {
+  color: #06263a;
+  background: #7dd3fc;
+}
+
+.env-badge__label {
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.env-badge__meta {
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+.env-badge__note {
+  font-weight: 500;
+  opacity: 0.6;
+}
+
+/* Keep it to the essentials on narrow screens. */
+@media (max-width: 620px) {
+  .env-badge__note {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .env-badge__meta:last-of-type {
+    display: none;
+  }
+}
+
+@media print {
+  .env-badge {
+    display: none;
+  }
+}

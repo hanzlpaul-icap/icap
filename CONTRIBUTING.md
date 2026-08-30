@@ -13,6 +13,17 @@ There are no exceptions, including for one-line content edits.
 
 `main` is the production branch. Whatever is on `main` is live.
 
+### Telling them apart
+
+Every non-production build renders a badge in the bottom-left corner naming the
+environment, the branch, and the short commit SHA — amber on Vercel previews,
+blue on local dev. **Production shows nothing.**
+
+This is a build-time switch, not a runtime check: `vite.config.ts` inlines
+Vercel's `VERCEL_ENV` as `__DEPLOY_ENV__`, so a production build drops the
+component through dead-code elimination and the markup never ships. If you are
+looking at a page with no badge, you are looking at production.
+
 ## Provenance
 
 The site was built by Tai and delivered through the public repo
