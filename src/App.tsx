@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { EnvBadge } from './components/EnvBadge'
 import { Nav } from './components/Nav'
 import { FlythroughHero } from './hero/FlythroughHero'
 import { Courses } from './sections/Courses'
@@ -50,6 +51,7 @@ export default function App() {
 
   return (
     <>
+      <EnvBadge />
       <Nav />
       <FlythroughHero onExplore={() => openExplorer()} />
       <div className="content" id="content-start">
