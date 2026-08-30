@@ -1,0 +1,48 @@
+name: CI
+
+# Runs on every PR into main, and on main itself after a merge.
+# Vercel builds previews in parallel; this is the gate that decides
+# whether a PR is allowed to merge at all.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# A new push to the same branch cancels the previous run.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Type-check and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # ci (not install) so the lockfile is authoritative and the build
+      # is reproducible. Fails loudly if package.json and the lockfile drift.
+      - name: Install dependencies
+        run: npm ci
+
+      # package.json build is "tsc -b && vite build", so this is
+      # type-check and production build in one step.
+      - name: Type-check and build
+        run: npm run build
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 7
