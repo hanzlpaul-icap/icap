@@ -13,6 +13,16 @@ There are no exceptions, including for one-line content edits.
 
 `main` is the production branch. Whatever is on `main` is live.
 
+## Provenance
+
+The site was built by Tai and delivered through the public repo
+`aiaiohhh/ICAPP`, which was copied here with its history intact. That repo stays
+configured as the `upstream` remote for reference only — **never push to it**.
+
+`origin` is `hanzlpaul-icap/icap` and is the only repo that matters from here on.
+Commits authored by Tai keep his authorship, which is correct and should not be
+rewritten.
+
 ## Working copy location
 
 Clone and work in a path **outside OneDrive**, e.g. `C:\Users\lynwh\dev\ICAPP`.
@@ -90,7 +100,7 @@ Merging to `main` triggers the production deployment. Nothing else does.
 
 ### Vercel
 
-1. Vercel → **Add New → Project** → import `aiaiohhh/ICAPP`
+1. Vercel → **Add New → Project** → import `hanzlpaul-icap/icap`
 2. Framework preset: **Vite** (or leave it — `vercel.json` pins it)
 3. Production Branch: **`main`**
 4. Deploy

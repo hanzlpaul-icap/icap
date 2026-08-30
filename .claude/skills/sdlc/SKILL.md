@@ -114,7 +114,10 @@ Then fix forward through a normal PR. Do not revert by force-pushing `main`.
 
 ## Repository facts
 
-- Remote: `https://github.com/aiaiohhh/ICAPP`
+- Remote (`origin`, ours): `https://github.com/hanzlpaul-icap/icap`
+- Remote (`upstream`, read-only): `https://github.com/aiaiohhh/ICAPP` — the
+  original build by Tai, made public so it could be copied here. Treat it as an
+  archive: never push to it, and expect no further changes from it.
 - Production branch: `main`
 - Stack: Vite 6 + React 18 + TypeScript, no runtime deps beyond React
 - Content and pricing live in `src/content/courses.json`, sourced from
