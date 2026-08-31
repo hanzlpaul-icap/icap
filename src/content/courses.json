@@ -52,7 +52,8 @@
         { "label": "Observation checklists" },
         { "label": "Knowledge questions" },
         { "label": "Mapping guides" },
-        { "label": "Evidence sheets" }
+        { "label": "Evidence sheets" },
+        { "label": "Full RPL/VOC template" }
       ]
     },
     {
@@ -102,8 +103,8 @@
         { "label": "What positive communication means" },
         { "label": "Positive communication in your workplace" },
         { "label": "How positive communication affects you" },
-        { "label": "The effectiveness of positive communication", "soon": true },
-        { "label": "Measuring the effects on your crew", "soon": true }
+        { "label": "The effectiveness of positive communication" },
+        { "label": "Measuring the effects on your crew" }
       ]
     }
   ],
