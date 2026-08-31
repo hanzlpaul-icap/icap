@@ -1,11 +1,6 @@
 {
   "stages": [
     {
-      "slug": "operator",
-      "name": "Operator",
-      "blurb": "Verify the people in the seat are competent, current and confident."
-    },
-    {
       "slug": "assessor",
       "name": "Assessor",
       "blurb": "Build assessors who make fair, consistent, defensible judgements."
@@ -22,22 +17,6 @@
     }
   ],
   "categories": [
-    {
-      "slug": "competency-assessments",
-      "stage": "operator",
-      "kicker": "Verification of competency",
-      "title": "Competency-based assessments",
-      "blurb": "Independent verification that your operators can do the job safely and to standard — on your site, on your machines.",
-      "price": "POA",
-      "priceNote": "per operator",
-      "format": "On site · all plant classes",
-      "modules": [
-        { "label": "Verifications of competency (VOCs)" },
-        { "label": "Practical assessments" },
-        { "label": "Capability reviews" },
-        { "label": "Operator skill verification", "soon": true }
-      ]
-    },
     {
       "slug": "assessment-tool-development",
       "stage": "assessor",
