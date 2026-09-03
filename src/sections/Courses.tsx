@@ -81,7 +81,7 @@ export function Courses({ onExplore }: { onExplore: (slug: string) => void }) {
         <span className="kicker">Courses &amp; services</span>
         <h2 className="section-title">What ICAP offers</h2>
         <p className="section-intro">
-          From verifying a single operator to rebuilding how your whole site
+          From sharpening a single assessor to rebuilding how your whole site
           trains, assesses and leads — every program is built for mining,
           construction and civil environments.
         </p>
@@ -93,8 +93,8 @@ export function Courses({ onExplore }: { onExplore: (slug: string) => void }) {
           <aside className="course-card course-card--cta">
             <h3>Not sure where to start?</h3>
             <p className="course-card__blurb">
-              Browse the full catalogue by role — operator, assessor,
-              supervisor — or talk it through with us.
+              Browse the full catalogue by role — assessor, supervisor,
+              whole crew — or talk it through with us.
             </p>
             <div className="course-card__cta-stack">
               <button className="pill pill--light" type="button" onClick={() => onExplore('')}>
