@@ -6,11 +6,11 @@ export function TemplateStore() {
       <div className="container">
         <span className="kicker kicker--light">Digital templates &amp; tools</span>
         <h2 className="section-title section-title--light">
-          Instant-download assessment tools
+          Tools built from the field
         </h2>
         <p className="section-intro section-intro--light">
-          The same instruments ICAP uses in the field — ready to adapt to your
-          site and standards.
+          The same instruments ICAP uses on site, packaged for you to adapt to
+          your own standards and plant.
         </p>
 
         <div className="store-grid">
@@ -32,8 +32,9 @@ export function TemplateStore() {
           ))}
         </div>
         <p className="store-note">
-          Checkout is coming online soon — until then, packs are delivered same
-          day via the contact form below.
+          Each pack is written and in final preparation. Tell us which one you
+          need — we&rsquo;ll let you know as soon as it&rsquo;s ready, and take your
+          site&rsquo;s requirements into account while we finish it.
         </p>
       </div>
     </section>
