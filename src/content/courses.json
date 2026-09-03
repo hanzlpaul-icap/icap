@@ -90,9 +90,9 @@
   "templates": [
     {
       "title": "Assessment toolkit",
-      "price": "$249",
+      "price": "$450",
       "blurb": "The full set of instruments to run a compliant workplace assessment, ready to adapt.",
-      "soon": true
+      "soon": false
     },
     {
       "title": "VOC template pack",
