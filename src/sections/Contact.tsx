@@ -83,7 +83,7 @@ export function Contact() {
             <textarea
               name="message"
               rows={4}
-              placeholder="e.g. VOCs for a 12-operator crew, or assessor coaching for our training team"
+              placeholder="e.g. assessor coaching for our training team, or supervisor development for a new crew"
             />
           </label>
           <button className="pill pill--light" type="submit">

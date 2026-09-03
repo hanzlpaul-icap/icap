@@ -6,7 +6,6 @@ type Module = { label: string; soon?: boolean }
 type Category = (typeof data.categories)[number]
 
 const STAGE_BARS: Record<string, number> = {
-  operator: 26,
   assessor: 38,
   supervisor: 50,
   crew: 62,

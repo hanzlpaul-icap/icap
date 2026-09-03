@@ -1,11 +1,6 @@
 {
   "stages": [
     {
-      "slug": "operator",
-      "name": "Operator",
-      "blurb": "Verify the people in the seat are competent, current and confident."
-    },
-    {
       "slug": "assessor",
       "name": "Assessor",
       "blurb": "Build assessors who make fair, consistent, defensible judgements."
@@ -23,28 +18,12 @@
   ],
   "categories": [
     {
-      "slug": "competency-assessments",
-      "stage": "operator",
-      "kicker": "Verification of competency",
-      "title": "Competency-based assessments",
-      "blurb": "Independent verification that your operators can do the job safely and to standard — on your site, on your machines.",
-      "price": "POA",
-      "priceNote": "per operator",
-      "format": "On site · all plant classes",
-      "modules": [
-        { "label": "Verifications of competency (VOCs)" },
-        { "label": "Practical assessments" },
-        { "label": "Capability reviews" },
-        { "label": "Operator skill verification", "soon": true }
-      ]
-    },
-    {
       "slug": "assessment-tool-development",
       "stage": "assessor",
       "kicker": "Build your own tools",
       "title": "Assessment tool development",
       "blurb": "Learn to create clear, compliant, industry-aligned assessment tools — from mapping to marking guides — so the evidence you collect is valid, reliable and sufficient.",
-      "price": "$299",
+      "price": "$2,500",
       "priceNote": "coaching + templates",
       "format": "1-hour coaching · online",
       "modules": [
@@ -52,7 +31,8 @@
         { "label": "Observation checklists" },
         { "label": "Knowledge questions" },
         { "label": "Mapping guides" },
-        { "label": "Evidence sheets" }
+        { "label": "Evidence sheets" },
+        { "label": "Full RPL/VOC template" }
       ]
     },
     {
@@ -61,7 +41,7 @@
       "kicker": "Coaching program",
       "title": "Assessor coaching & development",
       "blurb": "Practical coaching that strengthens the skill and confidence of your workplace assessors — so every assessment decision stands up to scrutiny.",
-      "price": "from $499",
+      "price": "from $2,000",
       "priceNote": "per assessor",
       "format": "Custom-built · on site or remote",
       "modules": [
@@ -95,34 +75,34 @@
       "kicker": "Culture program",
       "title": "Power of positive communication",
       "blurb": "Clear, respectful, solution-focused language that improves teamwork, reduces conflict and builds a site where problems get solved constructively.",
-      "price": "from $2,700",
+      "price": "from $2,400",
       "priceNote": "whole-of-crew unit",
       "format": "One unit · delivered on site",
       "modules": [
         { "label": "What positive communication means" },
         { "label": "Positive communication in your workplace" },
         { "label": "How positive communication affects you" },
-        { "label": "The effectiveness of positive communication", "soon": true },
-        { "label": "Measuring the effects on your crew", "soon": true }
+        { "label": "The effectiveness of positive communication" },
+        { "label": "Measuring the effects on your crew" }
       ]
     }
   ],
   "templates": [
     {
       "title": "Assessment toolkit",
-      "price": "$79",
+      "price": "$450",
       "blurb": "The full set of instruments to run a compliant workplace assessment, ready to adapt.",
-      "soon": false
+      "soon": true
     },
     {
       "title": "VOC template pack",
-      "price": "$39",
+      "price": "$459",
       "blurb": "Verification of competency templates covering common plant classes.",
       "soon": false
     },
     {
       "title": "Supervisor starter pack",
-      "price": "$49",
+      "price": "$949",
       "blurb": "Prestart, task allocation and coaching templates for new frontline leaders.",
       "soon": true
     }

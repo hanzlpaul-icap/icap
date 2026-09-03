@@ -306,9 +306,9 @@ export function FlythroughHero({ onExplore }: { onExplore: () => void }) {
               <span className="kicker">What ICAP does</span>
               <h2>Training. Assessment. Workforce capability.</h2>
               <ul className="fly-list">
-                <li>Operator VOCs and practical assessments</li>
-                <li>Assessor coaching and assessment tool development</li>
+                <li>Assessment tool development and assessor coaching</li>
                 <li>Supervisor and frontline leadership programs</li>
+                <li>Positive communication for the whole crew</li>
               </ul>
             </div>
           </div>
@@ -323,8 +323,8 @@ export function FlythroughHero({ onExplore }: { onExplore: () => void }) {
               <span className="kicker">Course catalogue</span>
               <h2>See where your crew stands.</h2>
               <p>
-                From operator VOCs to supervisor leadership — find the right
-                program for every role on your site.
+                From assessor coaching to whole-of-crew communication — find
+                the right program for every role on your site.
               </p>
               <button className="pill" type="button" onClick={onExplore}>
                 View the course catalogue

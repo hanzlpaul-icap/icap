@@ -1,6 +1,6 @@
 const CREDENTIALS = [
   'S26 certified · Cert IV Assessor qualification',
-  'Diploma of Quality Management',
+  'Diploma of Surface Operations Management (RII50120)',
   'Background in mining and civil industry',
   'Strength in training, supervision and assessment systems',
 ]
