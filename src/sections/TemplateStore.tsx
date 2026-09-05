@@ -37,6 +37,39 @@ export function TemplateStore() {
           site&rsquo;s requirements into account while we finish it.
         </p>
 
+        <div className="single-voc">
+          <div className="single-voc__head">
+            <div className="single-voc__intro">
+              <p className="single-voc__label">Only run a few machines?</p>
+              <h3 className="single-voc__title">
+                Buy a single VOC for {data.singleVoc.price}
+              </h3>
+            </div>
+            <p className="single-voc__anchor">
+              All sixteen bought separately come to{' '}
+              <strong>{data.singleVoc.individualTotal}</strong>. The{' '}
+              {data.singleVoc.packTitle} covers the lot for{' '}
+              <strong>{data.singleVoc.packPrice}</strong>.
+            </p>
+          </div>
+
+          <ul className="voc-machines">
+            {data.singleVoc.machines.map((machine) => (
+              <li className="voc-machine" key={machine.code}>
+                <span className="voc-machine__code">{machine.code}</span>
+                <span className="voc-machine__name">{machine.name}</span>
+                <span className="voc-machine__price">{data.singleVoc.price}</span>
+              </li>
+            ))}
+          </ul>
+
+          <p className="single-voc__note">
+            Every VOC is the complete form — pre-start, operating criteria,
+            hazards, knowledge questions and the assessor declaration. The
+            currency register and the pack guide come with the full pack only.
+          </p>
+        </div>
+
         <div className="store-free">
           <div className="store-free__copy">
             <p className="store-free__label">Free download</p>
