@@ -1,4 +1,75 @@
+import { useId, useState } from 'react'
 import data from '../content/courses.json'
+
+/**
+ * Sixteen machines would dominate a section whose job is to sell three packs,
+ * so the list opens on demand — the same disclosure the course cards use.
+ */
+function SingleVoc() {
+  const [open, setOpen] = useState(false)
+  const panelId = useId()
+  const { price, packTitle, packPrice, individualTotal, machines } = data.singleVoc
+
+  return (
+    <div className="single-voc">
+      <div className="single-voc__head">
+        <div className="single-voc__intro">
+          <p className="single-voc__label">Only run a few machines?</p>
+          <h3 className="single-voc__title">Buy a single VOC for {price}</h3>
+        </div>
+        <p className="single-voc__anchor">
+          All sixteen bought separately come to <strong>{individualTotal}</strong>.
+          The {packTitle} covers the lot for <strong>{packPrice}</strong>.
+        </p>
+      </div>
+
+      <div className="single-voc__actions">
+        <button
+          className="pill pill--light"
+          type="button"
+          aria-expanded={open}
+          aria-controls={panelId}
+          onClick={() => setOpen((v) => !v)}
+        >
+          {open ? 'Hide machines' : 'Choose your machine'}
+        </button>
+        <span className="single-voc__count">
+          {machines.length} machines · {price} each
+        </span>
+      </div>
+
+      <div
+        className={`single-voc__panel${open ? ' is-open' : ''}`}
+        id={panelId}
+        ref={(el) => {
+          // Collapsed panels stay out of the tab order and the a11y tree.
+          if (el) el.inert = !open
+        }}
+      >
+        <div className="single-voc__panel-inner">
+          <ul className="voc-machines">
+            {machines.map((machine, index) => (
+              <li
+                className="voc-machine"
+                key={machine.code}
+                style={{ transitionDelay: open ? `${100 + index * 35}ms` : '0ms' }}
+              >
+                <span className="voc-machine__code">{machine.code}</span>
+                <span className="voc-machine__name">{machine.name}</span>
+                <span className="voc-machine__price">{price}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="single-voc__note">
+            Every VOC is the complete form — pre-start, operating criteria,
+            hazards, knowledge questions and the assessor declaration. The
+            currency register and the pack guide come with the full pack only.
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export function TemplateStore() {
   return (
@@ -37,38 +108,7 @@ export function TemplateStore() {
           site&rsquo;s requirements into account while we finish it.
         </p>
 
-        <div className="single-voc">
-          <div className="single-voc__head">
-            <div className="single-voc__intro">
-              <p className="single-voc__label">Only run a few machines?</p>
-              <h3 className="single-voc__title">
-                Buy a single VOC for {data.singleVoc.price}
-              </h3>
-            </div>
-            <p className="single-voc__anchor">
-              All sixteen bought separately come to{' '}
-              <strong>{data.singleVoc.individualTotal}</strong>. The{' '}
-              {data.singleVoc.packTitle} covers the lot for{' '}
-              <strong>{data.singleVoc.packPrice}</strong>.
-            </p>
-          </div>
-
-          <ul className="voc-machines">
-            {data.singleVoc.machines.map((machine) => (
-              <li className="voc-machine" key={machine.code}>
-                <span className="voc-machine__code">{machine.code}</span>
-                <span className="voc-machine__name">{machine.name}</span>
-                <span className="voc-machine__price">{data.singleVoc.price}</span>
-              </li>
-            ))}
-          </ul>
-
-          <p className="single-voc__note">
-            Every VOC is the complete form — pre-start, operating criteria,
-            hazards, knowledge questions and the assessor declaration. The
-            currency register and the pack guide come with the full pack only.
-          </p>
-        </div>
+        <SingleVoc />
 
         <div className="store-free">
           <div className="store-free__copy">

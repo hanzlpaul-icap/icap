@@ -944,6 +944,50 @@
   color: var(--paper);
 }
 
+.single-voc__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem 1.2rem;
+  margin-top: 1.2rem;
+}
+
+.single-voc__count {
+  font-size: 0.84rem;
+  font-variant-numeric: tabular-nums;
+  color: rgba(247, 243, 234, 0.55);
+}
+
+/* Same disclosure the course cards use: the row track animates and the inner
+   element clips, so the panel sizes itself to whatever the list needs. */
+.single-voc__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 480ms var(--ease-out);
+}
+
+.single-voc__panel.is-open {
+  grid-template-rows: 1fr;
+}
+
+.single-voc__panel-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.single-voc__panel .voc-machine {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 380ms ease,
+    transform 380ms var(--ease-out);
+}
+
+.single-voc__panel.is-open .voc-machine {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .voc-machines {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
