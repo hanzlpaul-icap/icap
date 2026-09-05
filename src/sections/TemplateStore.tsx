@@ -36,6 +36,26 @@ export function TemplateStore() {
           need — we&rsquo;ll let you know as soon as it&rsquo;s ready, and take your
           site&rsquo;s requirements into account while we finish it.
         </p>
+
+        <div className="store-free">
+          <div className="store-free__copy">
+            <p className="store-free__label">Free download</p>
+            <h3 className="store-free__title">Assessment checklist</h3>
+            <p className="store-free__blurb">
+              A complete verification of competency form covering the steps
+              common to any mobile plant — free to use and adapt on your own
+              site. No sign-up, no catch.
+            </p>
+          </div>
+          <a
+            className="pill pill--light store-free__cta"
+            href="/downloads/icap-assessment-checklist.pdf"
+            target="_blank"
+            rel="noopener"
+          >
+            Download the checklist
+          </a>
+        </div>
       </div>
     </section>
   )
