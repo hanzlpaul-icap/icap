@@ -5,6 +5,9 @@ const CREDENTIALS = [
   'Strength in training, supervision and assessment systems',
 ]
 
+const MISSION =
+  'To raise the standard of competency, compliance and training quality across Australia.'
+
 const TEAM = [
   {
     initials: 'PH',
@@ -68,6 +71,11 @@ export function About() {
             </ul>
           </aside>
         </div>
+
+        <p className="about-mission">
+          <span className="about-mission__label">Our mission</span>
+          <span className="about-mission__text">{MISSION}</span>
+        </p>
       </div>
     </section>
   )
