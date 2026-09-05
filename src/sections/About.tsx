@@ -16,7 +16,7 @@ const DIRECTORS = [
   {
     initials: 'JH',
     name: 'John Henry',
-    role: 'Director · Data & Analytics',
+    role: 'Data & Analytics',
     portrait: '/images/team/john-portrait.jpg',
     bio: 'A qualified data analyst with solid proficiency in business data collaboration — helping teams interpret insights, streamline workflows and improve operational decision-making, so training effort goes exactly where the data says it should.',
   },
