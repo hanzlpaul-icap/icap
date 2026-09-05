@@ -106,5 +106,29 @@
       "blurb": "Prestart, task allocation and coaching templates for new frontline leaders.",
       "soon": true
     }
-  ]
+  ],
+  "singleVoc": {
+    "price": "$99",
+    "packTitle": "VOC template pack",
+    "packPrice": "$459",
+    "individualTotal": "$1,584",
+    "machines": [
+      { "code": "EXC", "name": "Excavator" },
+      { "code": "DOZ", "name": "Dozer" },
+      { "code": "WDZ", "name": "Wheel dozer" },
+      { "code": "GRD", "name": "Grader" },
+      { "code": "WLD", "name": "Wheel loader" },
+      { "code": "SKD", "name": "Skid steer" },
+      { "code": "AHT", "name": "Articulated haul truck" },
+      { "code": "RDT", "name": "Rigid dump truck" },
+      { "code": "WTC", "name": "Water cart" },
+      { "code": "RLR", "name": "Roller" },
+      { "code": "SCR", "name": "Scraper" },
+      { "code": "TLH", "name": "Telehandler" },
+      { "code": "FLT", "name": "Forklift" },
+      { "code": "EWP", "name": "Elevating work platform" },
+      { "code": "LV4", "name": "Light vehicle 4WD" },
+      { "code": "SVT", "name": "Service truck" }
+    ]
+  }
 }

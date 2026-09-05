@@ -889,3 +889,158 @@
   color: rgba(247, 243, 234, 0.45);
   border-top: 1px solid rgba(247, 243, 234, 0.12);
 }
+
+/* Single-machine VOCs. Sixteen more cards would swamp the three packs, so the
+   machines read as a compact list and the pack keeps the headline. The anchor
+   line is the point of the block: it prices the pack against the alternative. */
+.single-voc {
+  margin-top: 2.4rem;
+  padding: 1.8rem;
+  border: 1px solid rgba(247, 243, 234, 0.18);
+  border-radius: var(--radius-lg);
+  background: rgba(247, 243, 234, 0.04);
+}
+
+.single-voc__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  padding-bottom: 1.3rem;
+  border-bottom: 1px solid rgba(247, 243, 234, 0.14);
+}
+
+.single-voc__intro {
+  min-width: 15rem;
+}
+
+.single-voc__label {
+  margin: 0 0 0.3rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.single-voc__title {
+  margin: 0;
+  font-size: 1.32rem;
+  line-height: 1.25;
+  color: var(--paper);
+}
+
+.single-voc__anchor {
+  max-width: 24rem;
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: rgba(247, 243, 234, 0.62);
+}
+
+.single-voc__anchor strong {
+  font-weight: 600;
+  color: var(--paper);
+}
+
+.single-voc__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem 1.2rem;
+  margin-top: 1.2rem;
+}
+
+.single-voc__count {
+  font-size: 0.84rem;
+  font-variant-numeric: tabular-nums;
+  color: rgba(247, 243, 234, 0.55);
+}
+
+/* Same disclosure the course cards use: the row track animates and the inner
+   element clips, so the panel sizes itself to whatever the list needs. */
+.single-voc__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 480ms var(--ease-out);
+}
+
+.single-voc__panel.is-open {
+  grid-template-rows: 1fr;
+}
+
+.single-voc__panel-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.single-voc__panel .voc-machine {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 380ms ease,
+    transform 380ms var(--ease-out);
+}
+
+.single-voc__panel.is-open .voc-machine {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.voc-machines {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.4rem 1.4rem;
+  margin: 1.3rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.voc-machine {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(247, 243, 234, 0.08);
+}
+
+.voc-machine__code {
+  flex: none;
+  width: 2.7rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(169, 201, 232, 0.75);
+}
+
+.voc-machine__name {
+  flex: 1 1 auto;
+  font-size: 0.9rem;
+  color: var(--paper-dim);
+}
+
+.voc-machine__price {
+  flex: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: rgba(247, 243, 234, 0.72);
+}
+
+.single-voc__note {
+  margin: 1.4rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: rgba(247, 243, 234, 0.5);
+}
+
+@media (max-width: 640px) {
+  .single-voc {
+    padding: 1.4rem 1.2rem;
+  }
+
+  .single-voc__anchor {
+    max-width: none;
+  }
+}
