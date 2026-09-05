@@ -603,7 +603,7 @@
   margin-top: 2.8rem;
 }
 
-.director {
+.member {
   display: grid;
   grid-template-rows: auto 1fr;
   background: #fff;
@@ -612,7 +612,7 @@
   overflow: hidden;
 }
 
-.director__portrait {
+.member__portrait {
   position: relative;
   aspect-ratio: 4 / 5;
   /* portraits are shot on white — matching the frame hides the seam */
@@ -620,23 +620,23 @@
   border-bottom: 1px solid rgba(22, 56, 92, 0.1);
 }
 
-.director__portrait img {
+.member__portrait img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.director__body {
+.member__body {
   padding: 1.5rem 1.6rem 1.8rem;
 }
 
-.director h3 {
+.member h3 {
   font-size: 1.3rem;
   color: var(--navy-800);
 }
 
-.director__role {
+.member__role {
   margin-top: 0.25rem;
   font-size: 0.78rem;
   font-weight: 600;
@@ -645,7 +645,7 @@
   color: var(--blue-deep);
 }
 
-.director__bio {
+.member__bio {
   margin-top: 0.9rem;
   font-size: 0.94rem;
   color: var(--ink-soft);

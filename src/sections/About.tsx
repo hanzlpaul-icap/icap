@@ -5,7 +5,7 @@ const CREDENTIALS = [
   'Strength in training, supervision and assessment systems',
 ]
 
-const DIRECTORS = [
+const TEAM = [
   {
     initials: 'PH',
     name: 'Pavel Hanzl',
@@ -16,7 +16,7 @@ const DIRECTORS = [
   {
     initials: 'JH',
     name: 'John Henry',
-    role: 'Director · Data & Analytics',
+    role: 'Data & Analytics',
     portrait: '/images/team/john-portrait.jpg',
     bio: 'A qualified data analyst with solid proficiency in business data collaboration — helping teams interpret insights, streamline workflows and improve operational decision-making, so training effort goes exactly where the data says it should.',
   },
@@ -37,21 +37,21 @@ export function About() {
         </p>
 
         <div className="about-grid">
-          {DIRECTORS.map((director) => (
-            <article className="director" key={director.name}>
-              <div className="director__portrait">
+          {TEAM.map((member) => (
+            <article className="member" key={member.name}>
+              <div className="member__portrait">
                 <img
-                  src={director.portrait}
-                  alt={`${director.name}, ${director.role}`}
+                  src={member.portrait}
+                  alt={`${member.name}, ${member.role}`}
                   width={800}
                   height={1000}
                   loading="lazy"
                 />
               </div>
-              <div className="director__body">
-                <h3>{director.name}</h3>
-                <p className="director__role">{director.role}</p>
-                <p className="director__bio">{director.bio}</p>
+              <div className="member__body">
+                <h3>{member.name}</h3>
+                <p className="member__role">{member.role}</p>
+                <p className="member__bio">{member.bio}</p>
               </div>
             </article>
           ))}
