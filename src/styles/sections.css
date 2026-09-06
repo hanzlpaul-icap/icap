@@ -802,6 +802,10 @@
   border-radius: 10px;
   padding: 0.75rem 0.9rem;
   transition: border-color var(--dur) ease;
+  /* Inputs carry an intrinsic width of about 20 characters. Left alone that
+     becomes the minimum width of the grid track holding them, which pushes the
+     paired Email/Phone row wider than the form. */
+  min-width: 0;
 }
 
 .contact-form input:focus,
@@ -816,8 +820,14 @@
 
 .contact-form__row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* minmax(0, 1fr) rather than 1fr: the tracks must be free to shrink below the
+     content's intrinsic width, or the row overflows the form. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1rem;
+}
+
+.contact-form__row label {
+  min-width: 0;
 }
 
 @media (max-width: 560px) {
