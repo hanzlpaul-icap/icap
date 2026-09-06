@@ -5,8 +5,10 @@ const CREDENTIALS = [
   'Strength in training, supervision and assessment systems',
 ]
 
+// Rendered through {MISSION}, so the apostrophe is the character itself —
+// an &rsquo; entity would print literally here.
 const MISSION =
-  'To raise the standard of competency, compliance and training quality across Australia.'
+  'We lift our people from merely compliant to truly capable — because paperwork doesn’t keep anyone safe. Skilled people do.'
 
 const TEAM = [
   {
