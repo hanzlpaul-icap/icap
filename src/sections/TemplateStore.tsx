@@ -120,11 +120,12 @@ export function TemplateStore() {
               site. No sign-up, no catch.
             </p>
           </div>
+          {/* The button promises a download, so save the file rather than
+              opening a viewer tab. The download value names the saved file. */}
           <a
             className="pill pill--light store-free__cta"
             href="/downloads/icap-assessment-checklist.pdf"
-            target="_blank"
-            rel="noopener"
+            download="ICAP-Assessment-Checklist.pdf"
           >
             Download the checklist
           </a>
