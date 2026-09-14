@@ -1,14 +1,18 @@
 import { useId, useState } from 'react'
 import data from '../content/courses.json'
+import type { OrderRequest } from './Contact'
+
+type OrderHandler = (order: OrderRequest) => void
 
 /**
  * Sixteen machines would dominate a section whose job is to sell three packs,
  * so the list opens on demand — the same disclosure the course cards use.
  */
-function SingleVoc() {
+function SingleVoc({ onOrder }: { onOrder: OrderHandler }) {
   const [open, setOpen] = useState(false)
   const panelId = useId()
-  const { price, packTitle, packPrice, individualTotal, machines } = data.singleVoc
+  const { price, packTitle, packPrice, individualTotal, machines, soon } =
+    data.singleVoc
 
   return (
     <div className="single-voc">
@@ -48,17 +52,38 @@ function SingleVoc() {
       >
         <div className="single-voc__panel-inner">
           <ul className="voc-machines">
-            {machines.map((machine, index) => (
-              <li
-                className="voc-machine"
-                key={machine.code}
-                style={{ transitionDelay: open ? `${100 + index * 35}ms` : '0ms' }}
-              >
-                <span className="voc-machine__code">{machine.code}</span>
-                <span className="voc-machine__name">{machine.name}</span>
-                <span className="voc-machine__price">{price}</span>
-              </li>
-            ))}
+            {machines.map((machine, index) => {
+              // The whole row is the target when ordering is open — sixteen
+              // separate "Order" links beside the names would read as noise.
+              const row = (
+                <>
+                  <span className="voc-machine__code">{machine.code}</span>
+                  <span className="voc-machine__name">{machine.name}</span>
+                  <span className="voc-machine__price">{price}</span>
+                </>
+              )
+              return (
+                <li
+                  className="voc-machine"
+                  key={machine.code}
+                  style={{ transitionDelay: open ? `${100 + index * 35}ms` : '0ms' }}
+                >
+                  {soon ? (
+                    row
+                  ) : (
+                    <button
+                      className="voc-machine__order"
+                      type="button"
+                      onClick={() =>
+                        onOrder({ title: `${machine.name} VOC`, price })
+                      }
+                    >
+                      {row}
+                    </button>
+                  )}
+                </li>
+              )
+            })}
           </ul>
           <p className="single-voc__note">
             Every VOC is the complete form — pre-start, operating criteria,
@@ -71,7 +96,10 @@ function SingleVoc() {
   )
 }
 
-export function TemplateStore() {
+export function TemplateStore({ onOrder }: { onOrder: OrderHandler }) {
+  const anyOrderable =
+    data.templates.some((t) => !t.soon) || !data.singleVoc.soon
+
   return (
     <section className="section store" id="templates">
       <div className="container">
@@ -95,20 +123,36 @@ export function TemplateStore() {
               {template.soon ? (
                 <span className="soon-pill">Coming soon</span>
               ) : (
-                <a className="pill pill--light" href="#contact">
-                  Get the pack
+                <a
+                  className="pill pill--light"
+                  href="#contact"
+                  onClick={() =>
+                    onOrder({ title: template.title, price: template.price })
+                  }
+                >
+                  Request invoice
                 </a>
               )}
             </article>
           ))}
         </div>
         <p className="store-note">
-          Each pack is written and in final preparation. Tell us which one you
-          need — we&rsquo;ll let you know as soon as it&rsquo;s ready, and take your
-          site&rsquo;s requirements into account while we finish it.
+          {anyOrderable ? (
+            <>
+              Orders are invoiced, not checked out. Tell us what you need, we
+              send an invoice with our bank details, and the files come through
+              as soon as payment clears.
+            </>
+          ) : (
+            <>
+              Each pack is written and in final preparation. Tell us which one
+              you need — we&rsquo;ll let you know as soon as it&rsquo;s ready, and
+              take your site&rsquo;s requirements into account while we finish it.
+            </>
+          )}
         </p>
 
-        <SingleVoc />
+        <SingleVoc onOrder={onOrder} />
 
         <div className="store-free">
           <div className="store-free__copy">

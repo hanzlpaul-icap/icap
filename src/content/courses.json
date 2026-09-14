@@ -112,6 +112,7 @@
     "packTitle": "VOC template pack",
     "packPrice": "$459",
     "individualTotal": "$1,584",
+    "soon": true,
     "machines": [
       { "code": "EXC", "name": "Excavator" },
       { "code": "DOZ", "name": "Dozer" },
