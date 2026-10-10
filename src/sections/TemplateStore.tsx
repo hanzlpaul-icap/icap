@@ -1,5 +1,6 @@
 import { useId, useState } from 'react'
 import data from '../content/courses.json'
+import { ChecklistDownload } from './ChecklistDownload'
 import type { OrderRequest } from './Contact'
 
 type OrderHandler = (order: OrderRequest) => void
@@ -154,26 +155,7 @@ export function TemplateStore({ onOrder }: { onOrder: OrderHandler }) {
 
         <SingleVoc onOrder={onOrder} />
 
-        <div className="store-free">
-          <div className="store-free__copy">
-            <p className="store-free__label">Free download</p>
-            <h3 className="store-free__title">Assessment checklist</h3>
-            <p className="store-free__blurb">
-              A complete verification of competency form covering the steps
-              common to any mobile plant — free to use and adapt on your own
-              site. No sign-up, no catch.
-            </p>
-          </div>
-          {/* The button promises a download, so save the file rather than
-              opening a viewer tab. The download value names the saved file. */}
-          <a
-            className="pill pill--light store-free__cta"
-            href="/downloads/icap-assessment-checklist.pdf"
-            download="ICAP-Assessment-Checklist.pdf"
-          >
-            Download the checklist
-          </a>
-        </div>
+        <ChecklistDownload />
       </div>
     </section>
   )
