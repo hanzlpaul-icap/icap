@@ -5,7 +5,7 @@ import { useState } from 'react'
  * visitor's mail client. Swap ENQUIRY_EMAIL for the real inbox (and later a
  * form endpoint) before launch.
  */
-const ENQUIRY_EMAIL = 'enquiries@icap.com.au'
+const ENQUIRY_EMAIL = 'enquiries@icapaustralia.com.au'
 
 /** A product the visitor asked to order, carried over from the template store. */
 export type OrderRequest = {
