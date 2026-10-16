@@ -123,6 +123,10 @@ export function TemplateStore({ onOrder }: { onOrder: OrderHandler }) {
               {template.soon ? (
                 <span className="soon-pill">Coming soon</span>
               ) : (
+                /* "Order now" rather than "Purchase now": there is no checkout,
+                   and a button that promises one would surprise a first-time
+                   buyer at the worst moment. The store note below sets the
+                   expectation before anyone clicks. */
                 <a
                   className="pill pill--light"
                   href="#contact"
@@ -130,7 +134,7 @@ export function TemplateStore({ onOrder }: { onOrder: OrderHandler }) {
                     onOrder({ title: template.title, price: template.price })
                   }
                 >
-                  Request invoice
+                  Order now
                 </a>
               )}
             </article>
