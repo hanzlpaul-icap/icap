@@ -1,0 +1,19 @@
+{
+  // Separate from the root config on purpose. Vercel compiles each function
+  // with the nearest tsconfig, and the root one carries Vite-only options
+  // (allowImportingTsExtensions, noEmit) that a compiler which must emit
+  // rejects. `npm run build` type-checks this folder with --noEmit.
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+  "include": ["."]
+}
