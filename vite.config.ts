@@ -13,7 +13,7 @@ const deploySha = (process.env.VERCEL_GIT_COMMIT_SHA ?? '').slice(0, 7)
 //
 // VERCEL_PROJECT_PRODUCTION_URL is always the *production* domain even on a
 // preview build, and Vercel swaps it to the custom domain once one is attached.
-// So this resolves to the temporary .vercel.app host today and to icap.com.au
+// So this resolves to the temporary .vercel.app host today and to icapaustralia.com.au
 // automatically once that domain is added — no code change needed.
 // SITE_URL overrides it if we ever need to pin the value by hand.
 const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL ?? ''
