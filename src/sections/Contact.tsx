@@ -2,10 +2,11 @@ import { useState } from 'react'
 
 /**
  * Enquiry form. No backend is wired yet — submission composes an email in the
- * visitor's mail client. Swap ENQUIRY_EMAIL for the real inbox (and later a
- * form endpoint) before launch.
+ * visitor's mail client, addressed to Pavel's own mailbox. There is no
+ * enquiries@ alias in the M365 tenant, so don't point this at one without
+ * creating it first or every enquiry bounces.
  */
-const ENQUIRY_EMAIL = 'enquiries@icap.com.au'
+const ENQUIRY_EMAIL = 'phanzl@icapaustralia.com.au'
 
 /** A product the visitor asked to order, carried over from the template store. */
 export type OrderRequest = {
