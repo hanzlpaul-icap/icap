@@ -565,17 +565,22 @@
 /* The one thing a visitor can act on while every pack is still coming soon —
    set apart from the cards rather than posing as a fourth product. */
 .store-free {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.4rem;
   margin-top: 2rem;
   padding: 1.6rem 1.8rem;
   border: 1px solid rgba(247, 243, 234, 0.22);
   border-left: 4px solid var(--orange);
   border-radius: var(--radius-lg);
   background: rgba(247, 243, 234, 0.05);
+}
+
+/* The row lives here rather than on .store-free so the form panel below can
+   collapse to nothing — a zero-height flex line would still take a gap. */
+.store-free__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
 }
 
 .store-free__copy {
@@ -606,6 +611,75 @@
 
 .store-free__cta {
   flex: none;
+}
+
+/* Same disclosure as the single-VOC list: the row track animates and the inner
+   element clips, so the panel sizes itself to the form. */
+.store-free__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 480ms var(--ease-out);
+}
+
+.store-free__panel.is-open {
+  grid-template-rows: 1fr;
+}
+
+.store-free__panel-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .store-free__panel {
+    transition: none;
+  }
+}
+
+/* Inside the card already, so the contact form's own panel would be a box in
+   a box. Keep its fields, drop its frame. Two classes, because .contact-form is
+   defined further down and would otherwise win. */
+.contact-form.store-free__form {
+  margin-top: 1.4rem;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+.store-free__thanks {
+  margin-top: 1.4rem;
+}
+
+.store-free__thanks a {
+  color: var(--paper);
+}
+
+/* A checkbox reads as a sentence, not as a field label above an input. */
+.contact-form .store-free__optin {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  color: rgba(247, 243, 234, 0.82);
+}
+
+.contact-form .store-free__optin input {
+  flex: none;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin: 0.15rem 0 0;
+  padding: 0;
+  accent-color: var(--orange);
+}
+
+/* .contact-form input:focus removes the outline in favour of a border colour,
+   which a checkbox does not show. */
+.contact-form .store-free__optin input:focus-visible {
+  outline: 2.5px solid var(--sky);
+  outline-offset: 2px;
 }
 
 /* ============ results ============ */
