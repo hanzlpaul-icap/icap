@@ -97,6 +97,95 @@ function SingleVoc({ onOrder }: { onOrder: OrderHandler }) {
   )
 }
 
+type PackItem = { name: string; note?: string }
+type PackGroup = { label: string; items?: PackItem[]; note?: string }
+type Template = (typeof data.templates)[number]
+
+/**
+ * One pack. "View" opens the full document list in place, the same disclosure
+ * the course cards use, so a buyer can see what they would get before the
+ * pack is on sale as well as after.
+ */
+function PackCard({
+  template,
+  onOrder,
+}: {
+  template: Template
+  onOrder: OrderHandler
+}) {
+  const [open, setOpen] = useState(false)
+  const panelId = useId()
+  const groups = template.contents as PackGroup[]
+
+  return (
+    <article className="store-card">
+      <div className="store-card__head">
+        <h3>{template.title}</h3>
+        <span className="store-card__price">{template.price}</span>
+      </div>
+      <p>{template.blurb}</p>
+
+      <div className="store-card__actions">
+        {!template.soon && (
+          /* "Order now" rather than "Purchase now": there is no checkout,
+             and a button that promises one would surprise a first-time
+             buyer at the worst moment. The store note below sets the
+             expectation before anyone clicks. */
+          <a
+            className="pill pill--light"
+            href="#contact"
+            onClick={() =>
+              onOrder({ title: template.title, price: template.price })
+            }
+          >
+            Order now
+          </a>
+        )}
+        <button
+          className={`pill ${template.soon ? 'pill--light' : 'pill--ghost'}`}
+          type="button"
+          aria-expanded={open}
+          aria-controls={panelId}
+          onClick={() => setOpen((v) => !v)}
+        >
+          {open ? 'Hide' : 'View'}
+        </button>
+      </div>
+
+      <div
+        className={`store-card__panel${open ? ' is-open' : ''}`}
+        id={panelId}
+        ref={(el) => {
+          // Collapsed panels stay out of the tab order and the a11y tree.
+          if (el) el.inert = !open
+        }}
+      >
+        <div className="store-card__panel-inner">
+          <p className="store-card__summary">{template.summary}</p>
+          {groups.map((group) => (
+            <div className="pack-group" key={group.label}>
+              <p className="pack-group__label">{group.label}</p>
+              {group.items && (
+                <ul className="pack-items">
+                  {group.items.map((item) => (
+                    <li className="pack-item" key={item.name}>
+                      <span className="pack-item__name">{item.name}</span>
+                      {item.note && (
+                        <span className="pack-item__note">{item.note}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {group.note && <p className="pack-group__note">{group.note}</p>}
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+  )
+}
+
 export function TemplateStore({ onOrder }: { onOrder: OrderHandler }) {
   const anyOrderable =
     data.templates.some((t) => !t.soon) || !data.singleVoc.soon
@@ -115,30 +204,7 @@ export function TemplateStore({ onOrder }: { onOrder: OrderHandler }) {
 
         <div className="store-grid">
           {data.templates.map((template) => (
-            <article className={`store-card${template.soon ? ' is-soon' : ''}`} key={template.title}>
-              <div className="store-card__head">
-                <h3>{template.title}</h3>
-                <span className="store-card__price">{template.price}</span>
-              </div>
-              <p>{template.blurb}</p>
-              {template.soon ? (
-                <span className="soon-pill">Coming soon</span>
-              ) : (
-                /* "Order now" rather than "Purchase now": there is no checkout,
-                   and a button that promises one would surprise a first-time
-                   buyer at the worst moment. The store note below sets the
-                   expectation before anyone clicks. */
-                <a
-                  className="pill pill--light"
-                  href="#contact"
-                  onClick={() =>
-                    onOrder({ title: template.title, price: template.price })
-                  }
-                >
-                  Order now
-                </a>
-              )}
-            </article>
+            <PackCard key={template.title} template={template} onOrder={onOrder} />
           ))}
         </div>
         <p className="store-note">
