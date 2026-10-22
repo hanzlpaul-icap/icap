@@ -92,19 +92,110 @@
       "title": "Assessment toolkit",
       "price": "$450",
       "blurb": "The full set of instruments to run a compliant workplace assessment, ready to adapt.",
-      "soon": true
+      "soon": true,
+      "summary": "31 documents · editable Word and Excel files",
+      "contents": [
+        {
+          "label": "Core instruments (12)",
+          "items": [
+            { "name": "Assessment plan", "note": "sets the conditions before the day" },
+            { "name": "Candidate information and consent" },
+            { "name": "Pre-assessment evidence check", "note": "confirms the candidate is eligible" },
+            { "name": "Observation checklist", "note": "master template, adapted with a plant overlay" },
+            { "name": "Knowledge questions", "note": "question bank and response record" },
+            { "name": "Marking guide", "note": "model answers that keep assessors consistent" },
+            { "name": "Third-party report", "note": "supervisor observation over time" },
+            { "name": "Evidence record", "note": "the cover sheet an auditor starts with" },
+            { "name": "Assessment decision and feedback" },
+            { "name": "Gap and reassessment plan", "note": "for a Not Yet Competent outcome" },
+            { "name": "RPL application", "note": "recognition of prior experience" },
+            { "name": "Mapping guide", "note": "where every unit requirement is assessed" }
+          ]
+        },
+        {
+          "label": "Governance (7)",
+          "items": [
+            { "name": "Competency assessment policy", "note": "adapt it, then issue under your own authority" },
+            { "name": "Competency assessment procedure", "note": "the twelve steps on site" },
+            { "name": "Assessor appointment record" },
+            { "name": "Assessor competency matrix", "note": "Excel" },
+            { "name": "Appeals and reassessment procedure" },
+            { "name": "Currency and re-VOC schedule", "note": "Excel · who is current, what has expired" },
+            { "name": "Document register", "note": "Excel" }
+          ]
+        },
+        {
+          "label": "Plant class overlays (10)",
+          "items": [
+            { "name": "Excavator", "note": "observation criteria, knowledge questions, hazard annex and a fully worked example" },
+            { "name": "Dozer", "note": "observation criteria, knowledge questions and hazard annex" },
+            { "name": "Articulated haul truck", "note": "observation criteria, knowledge questions and hazard annex" }
+          ]
+        },
+        {
+          "label": "Guides (2)",
+          "items": [
+            { "name": "How to run a VOC", "note": "one-page reference for the day" },
+            { "name": "Rules of evidence mapping", "note": "read this first" }
+          ]
+        }
+      ]
     },
     {
       "title": "VOC template pack",
       "price": "$459",
       "blurb": "Verification of competency templates covering common plant classes.",
-      "soon": true
+      "soon": true,
+      "summary": "18 documents · editable Word and Excel files",
+      "contents": [
+        {
+          "label": "VOC forms, one per machine (16)",
+          "note": "Excavator, dozer, wheel dozer, grader, wheel loader, skid steer, articulated haul truck, rigid dump truck, water cart, roller, scraper, telehandler, forklift, elevating work platform, light vehicle 4WD and service truck. Each form is complete on its own: candidate and machine details, eligibility check, observation record, knowledge questions, decision, feedback, and the declaration and signatures."
+        },
+        {
+          "label": "Also included (2)",
+          "items": [
+            { "name": "How to use this pack" },
+            { "name": "VOC register", "note": "Excel · who is verified on what, and when it expires" }
+          ]
+        }
+      ]
     },
     {
       "title": "Supervisor starter pack",
       "price": "$949",
       "blurb": "Prestart, task allocation and coaching templates for new frontline leaders.",
-      "soon": true
+      "soon": true,
+      "summary": "12 documents · editable Word and Excel files",
+      "contents": [
+        {
+          "label": "Running the shift (5)",
+          "items": [
+            { "name": "Prestart and toolbox talk", "note": "run it, record it, confirm the crew understood" },
+            { "name": "Task allocation decision", "note": "match capability to risk, and record why" },
+            { "name": "Crew capability matrix", "note": "Excel · who can do what, at what level" },
+            { "name": "Hazard management record", "note": "the six-step cycle for one task, one shift" },
+            { "name": "Shift handover", "note": "SBAR: what happened, why it matters, what you recommend" }
+          ]
+        },
+        {
+          "label": "Developing people (5)",
+          "items": [
+            { "name": "Coaching conversation record", "note": "six steps, from prepare to follow up" },
+            { "name": "Feedback and difficult conversations", "note": "what to say, and what to say instead" },
+            { "name": "Development plan", "note": "coaching turned into a pathway with dates" },
+            { "name": "Supervisor self-assessment", "note": "six leadership pillars" },
+            { "name": "Supervisor communication card", "note": "one page, four techniques" }
+          ]
+        },
+        {
+          "label": "Also included (2)",
+          "items": [
+            { "name": "How to use this pack" },
+            { "name": "Document register", "note": "Excel" }
+          ]
+        }
+      ]
     }
   ],
   "singleVoc": {
