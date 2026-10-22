@@ -20,7 +20,16 @@ function SingleVoc({ onOrder }: { onOrder: OrderHandler }) {
       <div className="single-voc__head">
         <div className="single-voc__intro">
           <p className="single-voc__label">Only run a few machines?</p>
-          <h3 className="single-voc__title">Buy a single VOC for {price}</h3>
+          {/* "Buy" and "Choose" promise a purchase, so they wait until the
+              flag flips and ordering actually opens. */}
+          {soon ? (
+            <h3 className="single-voc__title">
+              Single VOCs, {price} each{' '}
+              <span className="soon-pill">Coming soon</span>
+            </h3>
+          ) : (
+            <h3 className="single-voc__title">Buy a single VOC for {price}</h3>
+          )}
         </div>
         <p className="single-voc__anchor">
           All sixteen bought separately come to <strong>{individualTotal}</strong>.
@@ -36,7 +45,7 @@ function SingleVoc({ onOrder }: { onOrder: OrderHandler }) {
           aria-controls={panelId}
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? 'Hide machines' : 'Choose your machine'}
+          {open ? 'Hide machines' : soon ? 'View machines' : 'Choose your machine'}
         </button>
         <span className="single-voc__count">
           {machines.length} machines · {price} each

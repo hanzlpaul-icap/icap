@@ -1181,6 +1181,11 @@
   color: var(--paper);
 }
 
+.single-voc__title .soon-pill {
+  margin-left: 0.2rem;
+  vertical-align: 0.25em;
+}
+
 .single-voc__anchor {
   max-width: 24rem;
   margin: 0;
