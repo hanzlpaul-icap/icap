@@ -6,8 +6,9 @@ const LEAD_ENDPOINT = '/api/checklist-lead'
 
 /**
  * The free checklist, in exchange for the visitor's details. The details go to
- * api/checklist-lead, which emails them to ICAP. The download never waits on
- * that: a fault on our side must not cost the visitor the file.
+ * api/checklist-lead, which saves them to Supabase and emails them to ICAP.
+ * The download never waits on that: a fault on our side must not cost the
+ * visitor the file.
  */
 export function ChecklistDownload() {
   const [open, setOpen] = useState(false)
