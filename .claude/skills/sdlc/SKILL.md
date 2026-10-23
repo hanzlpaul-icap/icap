@@ -19,7 +19,7 @@ human-facing version of this; this file is the operational procedure.
    Vercel, then fix forward.
 5. **Never commit secrets.** They belong in Vercel Environment Variables,
    scoped separately to Preview and Production.
-6. **Work outside OneDrive.** The working copy is `C:\Users\lynwh\dev\ICAPP`.
+6. **Work outside OneDrive.** The working copy is `C:\Users\paull\dev\ICAP`.
    Running Vite from a synced OneDrive folder fails with `Access is denied`
    writing `node_modules/.vite/` — see "Environment gotchas".
 
@@ -28,7 +28,7 @@ human-facing version of this; this file is the operational procedure.
 ### 1. Confirm a clean starting point
 
 ```sh
-cd C:/Users/lynwh/dev/ICAPP
+cd C:/Users/paull/dev/ICAP
 git status --short          # must be clean
 git checkout main && git pull
 ```
@@ -104,13 +104,19 @@ Then fix forward through a normal PR. Do not revert by force-pushing `main`.
 
 - **OneDrive breaks Vite.** Working from `OneDrive\Desktop\ICAP\...` kills the
   dev server (`Access is denied` on `node_modules/.vite/deps_temp_*`) and causes
-  `EPERM` during `npm install`. The working copy lives outside OneDrive.
+  `EPERM` during `npm install`. The working copy lives outside OneDrive. The
+  Desktop is OneDrive-synced, so `Desktop\ICAP` holds only shortcuts and
+  business documents.
 - **This machine is ARM64.** esbuild resolves `@esbuild/win32-arm64`. Relevant
-  if a native dependency ever misbehaves; CI runs x64 Linux.
+  if a native dependency ever misbehaves; CI runs x64 Linux. Git Bash runs under
+  x64 emulation and reports `AMD64` — ask Node (`node -p process.arch`) instead.
+  npm 11+ skips esbuild's postinstall under its allow-scripts policy and warns
+  about it; the build still works because the binary comes from that package.
 - **HMR does not work in the in-app browser pane.** Its WebSocket is blocked, so
   edits need a manual refresh there. HMR works normally in real Chrome.
-- **`gh` and `vercel` CLIs are not installed.** PR creation, merging, and Vercel
-  settings are done through the web UI unless the user installs them.
+- **`gh` is installed but must be signed in** (`gh auth login`) before it can
+  open or merge PRs. The `vercel` CLI is not installed, so Vercel settings are
+  done through the web UI.
 
 ## Repository facts
 

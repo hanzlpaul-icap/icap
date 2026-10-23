@@ -36,7 +36,9 @@ rewritten.
 
 ## Working copy location
 
-Clone and work in a path **outside OneDrive**, e.g. `C:\Users\lynwh\dev\ICAPP`.
+Clone and work in a path **outside OneDrive**, e.g. `C:\Users\paull\dev\ICAP`.
+On this machine the Desktop is synced by OneDrive, so `Desktop\ICAP` holds only
+shortcuts and business documents — never clone there.
 
 OneDrive's sync engine locks files while Vite pre-bundles dependencies, which
 kills the dev server with `Access is denied` writing to `node_modules/.vite/`,
