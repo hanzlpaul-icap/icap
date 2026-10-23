@@ -4,38 +4,22 @@ import { useState } from 'react'
  * Enquiry form. No backend is wired yet — submission composes an email in the
  * visitor's mail client, addressed to Pavel's own mailbox. There is no
  * enquiries@ alias in the M365 tenant, so don't point this at one without
- * creating it first or every enquiry bounces.
+ * creating it first or every enquiry bounces. The template store's copy
+ * requests go to the same mailbox.
  */
-const ENQUIRY_EMAIL = 'phanzl@icapaustralia.com.au'
+export const ENQUIRY_EMAIL = 'phanzl@icapaustralia.com.au'
 
-/** A product the visitor asked to order, carried over from the template store. */
-export type OrderRequest = {
-  title: string
-  price: string
-}
-
-export function Contact({
-  order,
-  onClearOrder,
-}: {
-  order?: OrderRequest | null
-  onClearOrder?: () => void
-}) {
+export function Contact() {
   const [sent, setSent] = useState(false)
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const form = new FormData(event.currentTarget)
     const subject = encodeURIComponent(
-      order
-        ? `Order request — ${order.title}`
-        : `Consultation enquiry — ${form.get('name') ?? ''}`,
+      `Consultation enquiry — ${form.get('name') ?? ''}`,
     )
     const body = encodeURIComponent(
       [
-        // The product goes at the top of the email, not buried in the message,
-        // so an order is obvious at a glance in the inbox.
-        ...(order ? [`Ordering: ${order.title} — ${order.price}`, ''] : []),
         `Name: ${form.get('name') ?? ''}`,
         `Company: ${form.get('company') ?? ''}`,
         `Phone: ${form.get('phone') ?? ''}`,
@@ -78,25 +62,6 @@ export function Contact({
         </div>
 
         <form className="contact-form" onSubmit={handleSubmit}>
-          {order && (
-            <div className="order-chip">
-              <div className="order-chip__copy">
-                <span className="order-chip__label">Order request</span>
-                <span className="order-chip__title">{order.title}</span>
-              </div>
-              <span className="order-chip__price">{order.price}</span>
-              {onClearOrder && (
-                <button
-                  className="order-chip__clear"
-                  type="button"
-                  onClick={onClearOrder}
-                  aria-label={`Remove ${order.title} from this enquiry`}
-                >
-                  ×
-                </button>
-              )}
-            </div>
-          )}
           <label>
             Name
             <input name="name" type="text" autoComplete="name" required />
@@ -116,31 +81,20 @@ export function Contact({
             </label>
           </div>
           <label>
-            {order ? 'Anything we should know?' : 'What do you need?'}
+            What do you need?
             <textarea
               name="message"
               rows={4}
-              placeholder={
-                order
-                  ? 'e.g. purchase order number, or the site the pack is for'
-                  : 'e.g. assessor coaching for our training team, or supervisor development for a new crew'
-              }
+              placeholder="e.g. assessor coaching for our training team, or supervisor development for a new crew"
             />
           </label>
           <button className="pill pill--light" type="submit">
-            {order ? 'Send order request' : 'Send enquiry'}
+            Send enquiry
           </button>
-          {order && (
-            <p className="contact-form__terms">
-              We&rsquo;ll email an invoice with our bank details. The files are
-              sent as soon as payment clears.
-            </p>
-          )}
           {sent && (
             <p className="contact-form__sent" role="status">
-              Your email client should have opened with the{' '}
-              {order ? 'order request' : 'enquiry'} ready to send. If not, email
-              us directly at {ENQUIRY_EMAIL}.
+              Your email client should have opened with the enquiry ready to
+              send. If not, email us directly at {ENQUIRY_EMAIL}.
             </p>
           )}
         </form>

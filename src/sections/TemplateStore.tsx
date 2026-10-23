@@ -1,26 +1,42 @@
 import { useId, useState } from 'react'
 import data from '../content/courses.json'
 import { ChecklistDownload } from './ChecklistDownload'
-import type { OrderRequest } from './Contact'
+import { ENQUIRY_EMAIL } from './Contact'
 
-type OrderHandler = (order: OrderRequest) => void
+/**
+ * Nothing is sold through the site. A visitor emails Pavel for a copy and he
+ * replies personally with the PDF. The item and price go in the subject so
+ * each request is obvious in the inbox; the body leaves room for who is asking.
+ */
+function copyRequest(item: string, price: string): string {
+  const subject = `Copy request: ${item} (PDF), ${price}`
+  const body = [
+    'Hi Pavel,',
+    '',
+    `Please send me a copy of the ${item} (PDF, ${price}).`,
+    '',
+    'Name:',
+    'Company:',
+    'Phone:',
+  ].join('\n')
+  return `mailto:${ENQUIRY_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+}
 
 /**
  * Sixteen machines would dominate a section whose job is to sell three packs,
  * so the list opens on demand — the same disclosure the course cards use.
  */
-function SingleVoc({ onOrder }: { onOrder: OrderHandler }) {
+function SingleVoc() {
   const [open, setOpen] = useState(false)
   const panelId = useId()
-  const { price, packTitle, packPrice, individualTotal, machines, soon } =
-    data.singleVoc
+  const { price, packTitle, packPrice, individualTotal, machines } = data.singleVoc
 
   return (
     <div className="single-voc">
       <div className="single-voc__head">
         <div className="single-voc__intro">
           <p className="single-voc__label">Only run a few machines?</p>
-          <h3 className="single-voc__title">Buy a single VOC for {price}</h3>
+          <h3 className="single-voc__title">Single VOCs, {price} each</h3>
         </div>
         <p className="single-voc__anchor">
           All sixteen bought separately come to <strong>{individualTotal}</strong>.
@@ -36,7 +52,7 @@ function SingleVoc({ onOrder }: { onOrder: OrderHandler }) {
           aria-controls={panelId}
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? 'Hide machines' : 'Choose your machine'}
+          {open ? 'Hide machines' : 'View machines'}
         </button>
         <span className="single-voc__count">
           {machines.length} machines · {price} each
@@ -52,44 +68,36 @@ function SingleVoc({ onOrder }: { onOrder: OrderHandler }) {
         }}
       >
         <div className="single-voc__panel-inner">
+          <p className="single-voc__hint">
+            Select a machine to email Pavel for that VOC.
+          </p>
           <ul className="voc-machines">
-            {machines.map((machine, index) => {
-              // The whole row is the target when ordering is open — sixteen
-              // separate "Order" links beside the names would read as noise.
-              const row = (
-                <>
+            {machines.map((machine, index) => (
+              <li
+                className="voc-machine"
+                key={machine.code}
+                style={{ transitionDelay: open ? `${100 + index * 35}ms` : '0ms' }}
+              >
+                {/* The whole row is the link — sixteen separate "Email" links
+                    beside the names would read as noise. */}
+                <a
+                  className="voc-machine__email"
+                  href={copyRequest(`${machine.name} VOC`, price)}
+                  aria-label={`Email for a copy of the ${machine.name} VOC, ${price}`}
+                >
                   <span className="voc-machine__code">{machine.code}</span>
                   <span className="voc-machine__name">{machine.name}</span>
                   <span className="voc-machine__price">{price}</span>
-                </>
-              )
-              return (
-                <li
-                  className="voc-machine"
-                  key={machine.code}
-                  style={{ transitionDelay: open ? `${100 + index * 35}ms` : '0ms' }}
-                >
-                  {soon ? (
-                    row
-                  ) : (
-                    <button
-                      className="voc-machine__order"
-                      type="button"
-                      onClick={() =>
-                        onOrder({ title: `${machine.name} VOC`, price })
-                      }
-                    >
-                      {row}
-                    </button>
-                  )}
-                </li>
-              )
-            })}
+                </a>
+              </li>
+            ))}
           </ul>
           <p className="single-voc__note">
             Every VOC is the complete form — pre-start, operating criteria,
             hazards, knowledge questions and the assessor declaration. The
             currency register and the pack guide come with the full pack only.
+            The free assessment checklist below follows the same layout, if you
+            want to see the format first.
           </p>
         </div>
       </div>
@@ -103,16 +111,10 @@ type Template = (typeof data.templates)[number]
 
 /**
  * One pack. "View" opens the full document list in place, the same disclosure
- * the course cards use, so a buyer can see what they would get before the
- * pack is on sale as well as after.
+ * the course cards use, so a buyer can see what they would get before asking
+ * for a copy.
  */
-function PackCard({
-  template,
-  onOrder,
-}: {
-  template: Template
-  onOrder: OrderHandler
-}) {
+function PackCard({ template }: { template: Template }) {
   const [open, setOpen] = useState(false)
   const panelId = useId()
   const groups = template.contents as PackGroup[]
@@ -126,23 +128,11 @@ function PackCard({
       <p>{template.blurb}</p>
 
       <div className="store-card__actions">
-        {!template.soon && (
-          /* "Order now" rather than "Purchase now": there is no checkout,
-             and a button that promises one would surprise a first-time
-             buyer at the worst moment. The store note below sets the
-             expectation before anyone clicks. */
-          <a
-            className="pill pill--light"
-            href="#contact"
-            onClick={() =>
-              onOrder({ title: template.title, price: template.price })
-            }
-          >
-            Order now
-          </a>
-        )}
+        <a className="pill pill--light" href={copyRequest(template.title, template.price)}>
+          Email for a copy
+        </a>
         <button
-          className={`pill ${template.soon ? 'pill--light' : 'pill--ghost'}`}
+          className="pill pill--ghost"
           type="button"
           aria-expanded={open}
           aria-controls={panelId}
@@ -186,10 +176,7 @@ function PackCard({
   )
 }
 
-export function TemplateStore({ onOrder }: { onOrder: OrderHandler }) {
-  const anyOrderable =
-    data.templates.some((t) => !t.soon) || !data.singleVoc.soon
-
+export function TemplateStore() {
   return (
     <section className="section store" id="templates">
       <div className="container">
@@ -198,32 +185,22 @@ export function TemplateStore({ onOrder }: { onOrder: OrderHandler }) {
           Tools built from the field
         </h2>
         <p className="section-intro section-intro--light">
-          The same instruments ICAP uses on site, packaged for you to adapt to
-          your own standards and plant.
+          The same instruments ICAP uses on site, packaged ready to use on your
+          own site and plant.
         </p>
 
         <div className="store-grid">
           {data.templates.map((template) => (
-            <PackCard key={template.title} template={template} onOrder={onOrder} />
+            <PackCard key={template.title} template={template} />
           ))}
         </div>
         <p className="store-note">
-          {anyOrderable ? (
-            <>
-              Orders are invoiced, not checked out. Tell us what you need, we
-              send an invoice with our bank details, and the files come through
-              as soon as payment clears.
-            </>
-          ) : (
-            <>
-              Each pack is written and in final preparation. Tell us which one
-              you need — we&rsquo;ll let you know as soon as it&rsquo;s ready, and
-              take your site&rsquo;s requirements into account while we finish it.
-            </>
-          )}
+          Email Pavel for a copy of any pack or single VOC and he&rsquo;ll reply
+          personally with the PDF and how to pay. If the button doesn&rsquo;t
+          open your email, write to {ENQUIRY_EMAIL}.
         </p>
 
-        <SingleVoc onOrder={onOrder} />
+        <SingleVoc />
 
         <ChecklistDownload />
       </div>

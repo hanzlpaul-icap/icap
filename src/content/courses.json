@@ -91,9 +91,8 @@
     {
       "title": "Assessment toolkit",
       "price": "$450",
-      "blurb": "The full set of instruments to run a compliant workplace assessment, ready to adapt.",
-      "soon": true,
-      "summary": "31 documents · editable Word and Excel files",
+      "blurb": "The full set of instruments to run a compliant workplace assessment, ready to use.",
+      "summary": "31 documents, sent as PDF",
       "contents": [
         {
           "label": "Core instruments (12)",
@@ -101,7 +100,7 @@
             { "name": "Assessment plan", "note": "sets the conditions before the day" },
             { "name": "Candidate information and consent" },
             { "name": "Pre-assessment evidence check", "note": "confirms the candidate is eligible" },
-            { "name": "Observation checklist", "note": "master template, adapted with a plant overlay" },
+            { "name": "Observation checklist", "note": "master template, used with a plant overlay" },
             { "name": "Knowledge questions", "note": "question bank and response record" },
             { "name": "Marking guide", "note": "model answers that keep assessors consistent" },
             { "name": "Third-party report", "note": "supervisor observation over time" },
@@ -115,13 +114,13 @@
         {
           "label": "Governance (7)",
           "items": [
-            { "name": "Competency assessment policy", "note": "adapt it, then issue under your own authority" },
+            { "name": "Competency assessment policy", "note": "to issue under your own authority" },
             { "name": "Competency assessment procedure", "note": "the twelve steps on site" },
             { "name": "Assessor appointment record" },
-            { "name": "Assessor competency matrix", "note": "Excel" },
+            { "name": "Assessor competency matrix", "note": "who is authorised to assess what" },
             { "name": "Appeals and reassessment procedure" },
-            { "name": "Currency and re-VOC schedule", "note": "Excel · who is current, what has expired" },
-            { "name": "Document register", "note": "Excel" }
+            { "name": "Currency and re-VOC schedule", "note": "who is current, and what has expired" },
+            { "name": "Document register", "note": "the pack’s own index" }
           ]
         },
         {
@@ -145,8 +144,7 @@
       "title": "VOC template pack",
       "price": "$459",
       "blurb": "Verification of competency templates covering common plant classes.",
-      "soon": true,
-      "summary": "18 documents · editable Word and Excel files",
+      "summary": "18 documents, sent as PDF",
       "contents": [
         {
           "label": "VOC forms, one per machine (16)",
@@ -156,7 +154,7 @@
           "label": "Also included (2)",
           "items": [
             { "name": "How to use this pack" },
-            { "name": "VOC register", "note": "Excel · who is verified on what, and when it expires" }
+            { "name": "VOC register", "note": "who is verified on what, and when it expires" }
           ]
         }
       ]
@@ -165,15 +163,14 @@
       "title": "Supervisor starter pack",
       "price": "$949",
       "blurb": "Prestart, task allocation and coaching templates for new frontline leaders.",
-      "soon": true,
-      "summary": "12 documents · editable Word and Excel files",
+      "summary": "12 documents, sent as PDF",
       "contents": [
         {
           "label": "Running the shift (5)",
           "items": [
             { "name": "Prestart and toolbox talk", "note": "run it, record it, confirm the crew understood" },
             { "name": "Task allocation decision", "note": "match capability to risk, and record why" },
-            { "name": "Crew capability matrix", "note": "Excel · who can do what, at what level" },
+            { "name": "Crew capability matrix", "note": "who can do what, at what level" },
             { "name": "Hazard management record", "note": "the six-step cycle for one task, one shift" },
             { "name": "Shift handover", "note": "SBAR: what happened, why it matters, what you recommend" }
           ]
@@ -192,7 +189,7 @@
           "label": "Also included (2)",
           "items": [
             { "name": "How to use this pack" },
-            { "name": "Document register", "note": "Excel" }
+            { "name": "Document register", "note": "the pack’s own index" }
           ]
         }
       ]
@@ -203,7 +200,6 @@
     "packTitle": "VOC template pack",
     "packPrice": "$459",
     "individualTotal": "$1,584",
-    "soon": true,
     "machines": [
       { "code": "EXC", "name": "Excavator" },
       { "code": "DOZ", "name": "Dozer" },
