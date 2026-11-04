@@ -42,6 +42,16 @@ export default function App() {
     }
   }, [])
 
+  // A link to a section (#templates from a LinkedIn post, say) should open
+  // there. The browser looks for the anchor before React has rendered it,
+  // finds nothing and stays at the top, so jump once the page exists.
+  // #catalogue is handled above, and #top is where the page starts anyway.
+  useEffect(() => {
+    const id = window.location.hash.slice(1)
+    if (!id || id === 'top' || id.startsWith('catalogue')) return
+    document.getElementById(id)?.scrollIntoView()
+  }, [])
+
   useEffect(() => {
     document.body.style.overflow = explorerSlug !== null ? 'hidden' : ''
     return () => {

@@ -55,7 +55,13 @@ export function FlythroughHero({ onExplore }: { onExplore: () => void }) {
       (window.innerWidth > 0 && window.matchMedia(SMALL_QUERY).matches)
     )
   })
-  const [splashGone, setSplashGone] = useState(false)
+  // Opened part-way down the page (a link to #templates, say), the reader never
+  // sees the stage load, so the splash would only cover the section they came for.
+  const [splashGone, setSplashGone] = useState(() => {
+    if (typeof window === 'undefined') return false
+    const { hash } = window.location
+    return hash.length > 1 && hash !== '#top'
+  })
   const staticMode = envStatic || videoFailed
 
   useEffect(() => {
