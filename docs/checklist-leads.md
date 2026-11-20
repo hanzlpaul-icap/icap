@@ -21,13 +21,13 @@ The download starts the moment they submit. At the same time,
         Received:  Saturday, 10 October 2026 at 10:59 am (Perth time)
 
    Reply-To is set to the visitor, so pressing Reply writes to them. The email
-   is sent through ICAP's own Microsoft 365, from and to
+   is sent through ICAP's Brevo account, from and to
    `phanzl@icapaustralia.com.au`.
 
 The two are independent. If the email is not set up, or fails, the lead is
 still saved, and the other way round. Visitors get the checklist either way.
 
-No service other than Supabase and Microsoft 365 sees the details.
+No service other than Supabase and Brevo sees the details.
 
 ## Seeing your leads
 
@@ -99,55 +99,44 @@ the Table Editor).
 
 ## One-time setup: the email
 
-About fifteen minutes, signed in as the Microsoft 365 admin. Until it is done
-the form still works, visitors still get the checklist, and leads are still
-saved to the database. You just are not emailed about them.
+About ten minutes, in ICAP's Brevo account (the same free account used for
+marketing email). Until it is done the form still works, visitors still get
+the checklist, and leads are still saved to the database. You just are not
+emailed about them.
 
-**1. Register the website as an app in Microsoft Entra**
+The email used to go through Microsoft 365. That needs a Microsoft 365 admin
+to grant the website permission to send mail, and ICAP's admin account was set
+up by its reseller, Vodien, so Brevo is used instead.
 
-- Go to **entra.microsoft.com** and open **App registrations** (type it into
-  the search bar at the top if the menu looks different).
-- **New registration**. Name: `ICAP website - checklist leads`. Account type:
-  *this organisational directory only*. Leave the redirect URI empty.
-  **Register**.
-- On the overview page, copy the **Application (client) ID** and the
-  **Directory (tenant) ID**.
+**1. Check the sender is verified**
 
-**2. Allow it to send mail**
+- Brevo → **Settings** → **Senders, domains & IPs** → **Senders**.
+- `phanzl@icapaustralia.com.au` should be listed as verified (the address the
+  account was opened with usually is). If not, **Add a sender** and click the
+  link in the email Brevo sends.
+- If Brevo asks you to verify a phone number before sending, do that too.
 
-- **API permissions** → **Add a permission** → **Microsoft Graph** →
-  **Application permissions** → tick **Mail.Send** → **Add permissions**.
-- Click **Grant admin consent for ICAP Australia** → **Yes**. The status
-  column should show a green tick.
+**2. Create an API key**
 
-**3. Create a secret**
+- Brevo → **Settings** → **SMTP & API** → **API Keys** → **Generate a new API
+  key**. Name: `Vercel website`.
+- Copy the key straight away — it is only shown once.
 
-- **Certificates & secrets** → **Client secrets** → **New client secret**.
-  Description: `Vercel`. Expires: 24 months. **Add**.
-- Copy the **Value** straight away — it is only shown once. (Not the
-  "Secret ID" next to it.)
-- Put the expiry date in your calendar, a few weeks early. When the secret
-  expires, the emails stop. Leads are still saved and visitors still get the
-  checklist, so nothing on the site will look wrong.
-
-**4. Give the values to Vercel**
+**3. Give it to Vercel**
 
 - vercel.com → the **icap** project → **Settings** → **Environment Variables**.
-- Add these four, ticking both **Production** and **Preview**:
-
-  | Name | Value |
-  |---|---|
-  | `M365_TENANT_ID` | Directory (tenant) ID from step 1 |
-  | `M365_CLIENT_ID` | Application (client) ID from step 1 |
-  | `M365_CLIENT_SECRET` | the secret Value from step 3 — mark it **Sensitive** |
-  | `LEAD_MAILBOX` | `phanzl@icapaustralia.com.au` |
-
+- Add `BREVO_API_KEY` with the key from step 2, marked **Sensitive**, ticking
+  both **Production** and **Preview**.
+- `LEAD_MAILBOX` must also be set to `phanzl@icapaustralia.com.au` (it is the
+  sender and the recipient).
 - Redeploy: **Deployments** → the latest one → **⋯** → **Redeploy**.
 
-**5. Test it**
+**4. Test it**
 
 On the preview site, download the checklist using your own details. An email
-headed "Checklist download: ..." should arrive within a minute.
+headed "Checklist download: ..." should arrive within a minute. Check Junk the
+first time: until `icapaustralia.com.au` is authenticated in Brevo (Senders,
+domains & IPs → Domains), Outlook may file it there. Mark it **Not junk**.
 
 ## If leads stop arriving
 
@@ -160,9 +149,10 @@ Vercel → the icap project → **Logs**, and search for `checklist-lead`.
 | `not saved` … `insert 401` | the secret key is wrong or was deleted in Supabase — copy it again |
 | `not saved` … `insert 403` | the publishable key was used instead of the secret key |
 | `not saved` … `insert 5xx` or `timeout` | the Supabase project is paused or down — see below |
-| `not emailed` … `not configured` | one of the four M365/LEAD_MAILBOX variables is missing |
-| `not emailed` … `token 401` or `token 400` | the Microsoft secret has expired or was copied wrong — make a new one (email step 3) |
-| `not emailed` … `sendMail 403` | admin consent for Mail.Send is missing (email step 2) |
+| `not emailed` … `not configured` | `BREVO_API_KEY` or `LEAD_MAILBOX` is missing from Vercel (email step 3) |
+| `not emailed` … `brevo 401` | the API key is wrong or was deleted in Brevo — make a new one (email step 2) |
+| `not emailed` … `brevo 400` | usually the sender is not verified in Brevo (email step 1); the rest of the line says which field |
+| `not emailed` … `brevo 403` | Brevo has paused sending on the account, often until a phone number is verified — check the Brevo dashboard |
 | `rejected (bot or incomplete)` | a bot filled in the hidden field, or a request arrived without a name, company or valid email. Not a fault. |
 
 A lead that failed is printed in full on the same log line, so it can be
@@ -184,6 +174,10 @@ check soon after noticing.
 - **The checklist is still at a public address**
   (`/downloads/icap-assessment-checklist.pdf`). The form asks politely; it does
   not lock the file. Someone who already has the link can still use it.
-- **Mail.Send lets the app send as any mailbox in the Microsoft 365 account.**
-  With one mailbox that is only yours. If staff mailboxes are added later,
-  restrict it to `phanzl@` with an Exchange application access policy.
+- **The old Microsoft 365 setup is no longer used.** The `M365_TENANT_ID`,
+  `M365_CLIENT_ID` and `M365_CLIENT_SECRET` variables in Vercel, and the
+  `ICAP website - checklist leads` app registration in Microsoft Entra, can be
+  deleted.
+- **Brevo's free plan has a daily sending limit**, shared between lead alerts
+  and marketing emails. Lead alerts are a handful a day at most, but a large
+  campaign sent on the same day could use up the allowance.
