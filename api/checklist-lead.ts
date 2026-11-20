@@ -110,7 +110,10 @@ async function store(lead: Lead): Promise<void> {
 // Sent through Brevo rather than Microsoft 365: the Graph route needs a tenant
 // admin to grant Mail.Send, and ICAP's admin account is held by its reseller.
 async function notify(lead: Lead): Promise<void> {
-  const { BREVO_API_KEY: key, LEAD_MAILBOX: mailbox } = process.env
+  // Trimmed because a key pasted into Vercel can carry a trailing line break,
+  // which is not a legal header value.
+  const key = process.env.BREVO_API_KEY?.trim()
+  const mailbox = process.env.LEAD_MAILBOX?.trim()
   if (!key || !mailbox) {
     throw new Error('not configured: BREVO_API_KEY and LEAD_MAILBOX must both be set')
   }
