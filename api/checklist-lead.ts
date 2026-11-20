@@ -1,14 +1,15 @@
 /**
  * Free-checklist leads. The site posts the visitor's details here as the
  * download starts. This saves them to the checklist_leads table in Supabase,
- * and emails them to ICAP through Microsoft 365 with Reply-To set to the
- * visitor so following up is one click. The two are independent: either one
- * failing does not stop the other.
+ * and emails them to ICAP through Brevo with Reply-To set to the visitor so
+ * following up is one click. The two are independent: either one failing does
+ * not stop the other.
  *
  * Environment variables in Vercel, for Preview and Production:
- *   SUPABASE_URL, SUPABASE_SECRET_KEY                     the database
- *   M365_TENANT_ID, M365_CLIENT_ID, M365_CLIENT_SECRET   the app registration
- *   LEAD_MAILBOX                                          phanzl@icapaustralia.com.au
+ *   SUPABASE_URL, SUPABASE_SECRET_KEY   the database
+ *   BREVO_API_KEY                       Brevo's transactional email API
+ *   LEAD_MAILBOX                        phanzl@icapaustralia.com.au, a sender
+ *                                       verified in Brevo
  * SUPABASE_SERVICE_ROLE_KEY is accepted in place of SUPABASE_SECRET_KEY; the
  * Supabase integration for Vercel sets it. Setup is in docs/checklist-leads.md.
  *
@@ -106,55 +107,32 @@ async function store(lead: Lead): Promise<void> {
   }
 }
 
+// Sent through Brevo rather than Microsoft 365: the Graph route needs a tenant
+// admin to grant Mail.Send, and ICAP's admin account is held by its reseller.
 async function notify(lead: Lead): Promise<void> {
-  const {
-    M365_TENANT_ID: tenant,
-    M365_CLIENT_ID: clientId,
-    M365_CLIENT_SECRET: secret,
-    LEAD_MAILBOX: mailbox,
-  } = process.env
-  if (!tenant || !clientId || !secret || !mailbox) {
-    throw new Error('not configured: M365_* and LEAD_MAILBOX must all be set')
+  const { BREVO_API_KEY: key, LEAD_MAILBOX: mailbox } = process.env
+  if (!key || !mailbox) {
+    throw new Error('not configured: BREVO_API_KEY and LEAD_MAILBOX must both be set')
   }
 
-  const auth = await fetch(
-    `https://login.microsoftonline.com/${encodeURIComponent(tenant)}/oauth2/v2.0/token`,
-    {
-      method: 'POST',
-      body: new URLSearchParams({
-        client_id: clientId,
-        client_secret: secret,
-        scope: 'https://graph.microsoft.com/.default',
-        grant_type: 'client_credentials',
-      }),
-      signal: AbortSignal.timeout(8000),
+  const sent = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      'api-key': key,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
     },
-  )
-  if (!auth.ok) throw new Error(`token ${auth.status}: ${await auth.text()}`)
-  const { access_token } = (await auth.json()) as { access_token: string }
-
-  const sent = await fetch(
-    `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(mailbox)}/sendMail`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        message: {
-          subject: `Checklist download: ${lead.name}, ${lead.company}`,
-          body: { contentType: 'Text', content: compose(lead) },
-          toRecipients: [{ emailAddress: { address: mailbox } }],
-          replyTo: [{ emailAddress: { address: lead.email, name: lead.name } }],
-        },
-        saveToSentItems: false,
-      }),
-      signal: AbortSignal.timeout(8000),
-    },
-  )
-  if (sent.status !== 202) {
-    throw new Error(`sendMail ${sent.status}: ${await sent.text()}`)
+    body: JSON.stringify({
+      sender: { name: 'ICAP website', email: mailbox },
+      to: [{ email: mailbox }],
+      replyTo: { email: lead.email, name: lead.name },
+      subject: `Checklist download: ${lead.name}, ${lead.company}`,
+      textContent: compose(lead),
+    }),
+    signal: AbortSignal.timeout(8000),
+  })
+  if (sent.status !== 201) {
+    throw new Error(`brevo ${sent.status}: ${await sent.text()}`)
   }
 }
 
